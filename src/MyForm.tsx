@@ -28,6 +28,13 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
           select: [],
           radio: ""
         }}
+        validate={values => {
+          const errors: any = {}
+          if (values.firstName.length < 3) {
+            errors.firstName = "more than 3"
+          }
+          return errors
+        }}
         onSubmit={(values, { setSubmitting }) => {
           if (values.firstName.length > 3) {
             setSubmitting(true)
@@ -38,7 +45,7 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
           }
         }}
       >
-        {({ values, isSubmitting }) => (
+        {({ values, isSubmitting, errors }) => (
           <Form>
             <MyInputField name="firstName" placeholder="firstName" />
             <div>
@@ -110,6 +117,7 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
               submit
             </Button>
             <pre>{JSON.stringify(values, null, 2)}</pre>
+            <pre>{JSON.stringify(errors, null, 2)}</pre>
           </Form>
         )}
       </Formik>
