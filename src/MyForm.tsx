@@ -1,10 +1,11 @@
 import * as React from "react"
-import { Button } from "@material-ui/core"
-import { Form, Formik, Field } from "formik"
+import { Button, Select, MenuItem } from "@material-ui/core"
+import { Form, Formik, Field, FieldArray } from "formik"
 import { MyInputField } from "./customFormGroup/MyInputField"
 import { MyDateField } from "./customFormGroup/MyDateField"
 import { MyCheckboxField } from "./customFormGroup/MyCheckboxField"
 import { MyRadio } from "./customFormGroup/MyRadioField"
+import { validationSchema } from "./validationSchema"
 
 type Values = {
   firstName: string
@@ -26,23 +27,21 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
           email: "",
           isTall: false,
           select: [],
-          radio: ""
+          radio: "",
+          pets: [{ type: "cat", name: "Persian", id: "" + Math.random() }]
         }}
-        validate={values => {
-          const errors: any = {}
-          if (values.firstName.length < 3) {
-            errors.firstName = "more than 3"
-          }
-          return errors
-        }}
+        validationSchema={validationSchema}
+        // validate={values => {
+        //   const errors: any = {}
+        //   if (values.firstName.length < 3) {
+        //     errors.firstName = "need more than 3"
+        //   }
+        //   return errors
+        // }}
         onSubmit={(values, { setSubmitting }) => {
-          if (values.firstName.length > 3) {
-            setSubmitting(true)
-            onSubmit(values)
-            setSubmitting(false)
-          } else {
-            console.log("ERROR1")
-          }
+          setSubmitting(true)
+          onSubmit(values)
+          setSubmitting(false)
         }}
       >
         {({ values, isSubmitting, errors }) => (
@@ -107,7 +106,46 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
               type="radio"
               component={MyRadioField}
             /> */}
+            <FieldArray name="pets">
+              {arrayHelpers => (
+                <div>
+                  <Button
+                    onClick={() =>
+                      arrayHelpers.push({
+                        type: "pets",
+                        name: "",
+                        id: "" + Math.random()
+                      })
+                    }
+                  >
+                    add pet
+                  </Button>
+                  {values.pets.map((pet, index) => {
+                    return (
+                      <div key={pet.id}>
+                        <MyInputField
+                          placeholder="pet name"
+                          name={`pets.${index}.name`}
+                        />
+                        <Field
+                          name={`pets.${index}.type`}
+                          type="select"
+                          as={Select}
+                        >
+                          <MenuItem value="cat">cat</MenuItem>
+                          <MenuItem value="dog">dog</MenuItem>
+                          <MenuItem value="frog">frog</MenuItem>
+                        </Field>
 
+                        <Button onClick={() => arrayHelpers.remove(index)}>
+                          x
+                        </Button>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </FieldArray>
             <Button
               type="submit"
               color="secondary"
