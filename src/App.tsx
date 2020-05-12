@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { TodoList } from "./TodoList"
 import { AddTodoForm } from "./AddTodoForm"
 import MyForm from "./MyForm"
+import AddressForm from "./AddressForm"
 
 const initialTodo: Array<Todo> = [
   { text: "LEE", complete: false },
@@ -27,13 +28,14 @@ const App: React.FC = () => {
   }
   return (
     <React.Fragment>
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
-      <AddTodoForm addTodo={addTodo} />
+      {/* <AddressForm /> */}
       <MyForm
         onSubmit={value => {
           console.log(value)
         }}
       />
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <AddTodoForm addTodo={addTodo} />
     </React.Fragment>
   )
 }

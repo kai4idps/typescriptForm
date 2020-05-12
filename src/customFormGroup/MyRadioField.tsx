@@ -6,5 +6,6 @@ type MyRadioProps = { label: string } & FieldHookConfig<{}>
 
 export const MyRadio: React.FC<MyRadioProps> = ({ label, ...props }) => {
   const [field] = useField(props)
+
   return <FormControlLabel {...field} control={<Radio />} label={label} />
 }
