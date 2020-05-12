@@ -67,38 +67,31 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
                 component={MyDateField}
               />
             </div>
-            {/* <div>
-              <Field
-                name="email"
-                placeholder="email"
-                component={MyInputField}
-              />
-            </div>  */}
             <Field name="isTall" component={MyCheckboxField} />
-            <div>select:</div>
 
-            <Field
+            <div>複選:</div>
+            <MyCheckboxField
               name="select"
               value="apple"
               type="checkbox"
-              component={MyCheckboxField}
+              label="apple"
             />
-            <Field
+            <MyCheckboxField
               name="select"
               value="banana"
               type="checkbox"
-              component={MyCheckboxField}
+              label="banana"
             />
-            <Field
+            <MyCheckboxField
               name="select"
               value="cherry"
               type="checkbox"
-              component={MyCheckboxField}
+              label="cherry"
             />
-            <div>radio</div>
+            <div>單選</div>
             <MyRadio name="radio" value="Guava" type="radio" label="Guava" />
-            <MyRadio name="radio" value="Kiwi" type="radio" label="Guava" />
-            <MyRadio name="radio" value="Lemon" type="radio" label="Guava" />
+            <MyRadio name="radio" value="Kiwi" type="radio" label="Kiwi" />
+            <MyRadio name="radio" value="Lemon" type="radio" label="Lemon" />
 
             {/* <Field
               name="radio"

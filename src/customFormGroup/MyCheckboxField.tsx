@@ -1,11 +1,13 @@
 import * as React from "react"
-import { FieldProps } from "formik"
-import { Checkbox } from "@material-ui/core"
-import { TextFieldProps } from "@material-ui/core/TextField/TextField"
+import { FieldHookConfig, useField } from "formik"
+import { Checkbox, FormControlLabel } from "@material-ui/core"
 
-export const MyCheckboxField: React.FC<FieldProps & TextFieldProps> = ({
-  value,
-  field
+type MyCheckboxProps = { label: string } & FieldHookConfig<{}>
+
+export const MyCheckboxField: React.FC<MyCheckboxProps> = ({
+  label,
+  ...props
 }) => {
-  return <Checkbox value={value} {...field} />
+  const [field] = useField(props)
+  return <FormControlLabel {...field} control={<Checkbox />} label={label} />
 }
