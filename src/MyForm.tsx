@@ -28,9 +28,11 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
           isTall: false,
           select: [],
           radio: "",
-          pets: [{ type: "cat", name: "Persian", id: "" + Math.random() }]
+          pets: [{ type: "cat", name: "Persian", id: "" + Math.random() }],
         }}
         validationSchema={validationSchema}
+        // validationSchema={validationSchema}
+
         // validate={values => {
         //   const errors: any = {}
         //   if (values.firstName.length < 3) {
@@ -100,14 +102,14 @@ const MyForm: React.FC<Props> = ({ onSubmit }) => {
               component={MyRadioField}
             /> */}
             <FieldArray name="pets">
-              {arrayHelpers => (
+              {(arrayHelpers) => (
                 <div>
                   <Button
                     onClick={() =>
                       arrayHelpers.push({
                         type: "pets",
                         name: "",
-                        id: "" + Math.random()
+                        id: "" + Math.random(),
                       })
                     }
                   >
